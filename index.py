@@ -20,7 +20,11 @@ class requestHandler(tornado.web.RequestHandler):
     def get(self):
         amount = int(self.get_argument("requested_amount"))
         message = loanDesicion(amount)
-        self.write("Value: " + str(message))
+        response = {
+            'status': 200,
+            'response': str(message)
+        }
+        self.write(response)
 
 
       
