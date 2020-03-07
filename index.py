@@ -1,6 +1,17 @@
 import tornado.web
 import tornado.ioloop
 
+
+def loanDesicion(amount):
+    if amount > 5000:
+        return "Declined"
+    elif amount == 5000:
+        return "Undecided"     
+    else:
+        return "Approved"  
+
+   
+
 class serveRequestHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
@@ -8,7 +19,11 @@ class serveRequestHandler(tornado.web.RequestHandler):
 class requestHandler(tornado.web.RequestHandler):
     def get(self):
         amount = int(self.get_argument("requested_amount"))
-        self.write("Value: " + str(amount))
+        message = loanDesicion(amount)
+        self.write("Value: " + str(message))
+
+
+      
 
 if __name__ == "__main__":
     app = tornado.web.Application([
