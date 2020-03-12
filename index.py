@@ -3,7 +3,7 @@ import tornado.ioloop
 
 
 def loanDesicion(amount):
-    numberToDecide = 5000
+    numberToDecide = 50000
     if amount > numberToDecide:
         return "Declined"
     elif amount == numberToDecide:
