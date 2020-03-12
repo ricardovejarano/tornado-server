@@ -3,9 +3,10 @@ import tornado.ioloop
 
 
 def loanDesicion(amount):
-    if amount > 5000:
+    numberToDecide = 5000
+    if amount > numberToDecide:
         return "Declined"
-    elif amount == 5000:
+    elif amount == numberToDecide:
         return "Undecided"     
     else:
         return "Approved"  
@@ -22,6 +23,15 @@ class serveRequestHandler(tornado.web.RequestHandler):
 
 
 class requestHandler(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        print("setting headers!!!")
+        self.set_header("access-control-allow-origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS')
+        # HEADERS!
+        self.set_header("Access-Control-Allow-Headers", "access-control-allow-origin,authorization,content-type") 
+
+
     def get(self):
         canContinue = validRequest(self.get_argument("requested_amount"))
         if canContinue:
